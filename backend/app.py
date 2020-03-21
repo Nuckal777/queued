@@ -15,7 +15,7 @@ from models import *
 
 app = Flask(__name__)
 # handle tls with proper webserver
-
+app.config['JSON_AS_ASCII'] = False
 app.secret_key = os.urandom(24)
 auth = HTTPBasicAuth()
 
