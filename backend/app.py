@@ -104,9 +104,40 @@ def booking():
 
         db_session.add(b)
         db_session.commit()
-        #db_session.refresh(b)
 
         return {"BookingID": b.id}
+
+@app.route('/api/capacity', methods=['GET'])
+def capacity():
+    start_date = request.args.get('Startdate', '')
+    end_date = request.args.get('Enddate', '')
+    store_id = request.args.get('StoreID', '')
+    results = None
+
+    if not all([start_date, end_date, store_id]):
+        results = {}
+    else:
+        results = Booking.query.filter(
+            Booking.store_id == store_id,
+            Booking.start_date >= start_date,
+            Booking.start_date <= end_date
+        ).order_by(Booking.start_date).all()
+
+    histogram = {}
+    for booking in results:
+        if booking.start_date in histogram:
+            histogram[booking.start_date] += 1
+        else:
+            histogram[booking.start_date] = 1
+
+    result_dicts = []
+    for slot, amount in histogram.items():
+        result_dicts.append({
+            "Timeslot": slot,
+            "Amout": amount
+        })
+
+    return {"capacity": result_dicts}
 
 # handle tls with proper webserver
 ##context = ssl.SSLContext(ssl.PROTOCOL_TLSv1_2)
