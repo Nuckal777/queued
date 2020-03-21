@@ -1,33 +1,42 @@
 import React from 'react';
-import styles from './Overview.module.css';
 import PropTypes from 'prop-types';
-import { Alert } from 'react-bootstrap';
+import Moment from 'react-moment';
+import { Button, Table } from 'react-bootstrap'
 
 const Overview = (props) => {
-
     const { data } = props;
-
     return (
-        <>
-            <Alert key={"idx"} variant="primary" >
-                This is a  alert—check it out!
-            </Alert>
-            <div className={styles.wrapper}>
+        <Table>
+            <thead>
+                <tr>
+                    <th>Einkaufs-ID</th>
+                    <th>Datum</th>
+                    <th>Uhrzeit</th>
+                    <th>Termin absagen</th>
+                </tr>
+            </thead>
+            <tbody>
                 {
-                    data.map((entry) => <div>{entry.id}</div>)
+                    data.map((entry) => {
+                        const date = new Date(entry.startDate);
+                        return <tr>
+                            <td>{entry.purchaseID}</td>
+                            <td><Moment format="DD.MM.YYYY">{date}</Moment></td>
+                            <td><Moment format="hh:mm">{date}</Moment></td>
+                            <td><Button variant="danger">X</Button></td>
+                        </tr>
+                    })
                 }
-            </div>
-            </>
+            </tbody>
+        </Table>
     );
 }
 
-
 Overview.propTypes = {
     data: PropTypes.arrayOf(PropTypes.shape({
-       id: PropTypes.string.isRequired
+        purchaseID: PropTypes.string.isRequired,
+        startDate: PropTypes.number.isRequired
     }))
 };
 
 export default Overview;
-
-
