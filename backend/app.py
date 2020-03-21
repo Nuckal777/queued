@@ -43,13 +43,6 @@ USER_DATA["admin"] = "{}".format(admin_pw)
 logger.info("USER_DATA: %s" % USER_DATA)
 
 init_db()
-store = Store('Aldi', 'Supermarkt')
-user = User()
-booking = Booking(12334, user, store)
-db_session.add(store)
-db_session.add(user)
-db_session.add(booking)
-db_session.commit()
 
 @auth.verify_password
 def verify(username, password):
