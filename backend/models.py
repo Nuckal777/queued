@@ -42,4 +42,4 @@ class User(Base):
         pass
 
     def __repr__(self):
-        return '<User {}: {}>'.format(self.id)
+        return '<User {}>'.format(self.id)
