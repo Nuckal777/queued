@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from './App.modules.css';
+import styles from './App.module.css';
 import Overview from "./views/Overview";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Header from './layout/Header';
