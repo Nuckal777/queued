@@ -55,9 +55,24 @@ def verify(username, password):
 
 @app.route('/api/storelist', methods=['GET'])
 def storelist():
-    data = '{"StoreID": 0815, "type": "Bäcker", "Name": "ALDI", "Status": "Alles OK"}'
-    # return 'list of {}<br>{}'.format(request.args.get('type', 'all'), data)
-    return str(Store.query.all())
+    store_type = request.args.get('type', None)
+    results = None
+
+    if store_type is None:
+        results = Store.query.all()
+    else:
+        results = Store.query.filter(Store.store_type == store_type).all()
+
+    result_dicts = []
+    for store in results:
+        result_dicts.append({
+            "id": store.id,
+            "type": store.store_type,
+            "name": store.name,
+            "status": store.status,
+        })
+
+    return {"storelist": result_dicts}
 
 @app.route('/api/msg/', methods=['POST'])
 @auth.login_required
