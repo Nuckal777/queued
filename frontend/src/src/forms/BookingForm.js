@@ -1,10 +1,9 @@
 import React from "react";
-import { Form } from 'react-bootstrap';
+import { Form, Button } from 'react-bootstrap';
 import StoreSelector from "./controls/StoreSelector";
 import DateSelector from "./controls/DateSelector";
 
 const Booking = (props) => {
-
     return (
         <Form>
             <Form.Group controlId="bookingForm.store">
@@ -12,9 +11,10 @@ const Booking = (props) => {
                 <StoreSelector />
             </Form.Group>
             <Form.Group controlId="bookingForm.store">
-                <Form.Label>Tag auswählen</Form.Label>
+                <Form.Label>Datum auswählen</Form.Label>
                 <DateSelector />
             </Form.Group>
+            <Button type="submit" variant="secondary">Jetzt buchen</Button>
         </Form>
     );
 }
