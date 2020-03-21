@@ -8,6 +8,9 @@ from werkzeug import serving
 from flask_httpauth import HTTPBasicAuth
 import ssl
 #import requests
+from database import init_db
+from database import db_session
+from models import Store
 
 
 app = Flask(__name__)
@@ -39,11 +42,22 @@ USER_DATA["admin"] = "{}".format(admin_pw)
 
 logger.info("USER_DATA: %s" % USER_DATA)
 
+init_db()
+store = Store('Aldi', 'Supermarkt')
+db_session.add(store)
+db_session.commit()
+
 @auth.verify_password
 def verify(username, password):
     if not (username and password):
         return False
     return USER_DATA.get(username) == password
+
+@app.route('/api/storelist', methods=['GET'])
+def storelist():
+    data = '{"StoreID": 0815, "type": "Bäcker", "Name": "ALDI", "Status": "Alles OK"}'
+    # return 'list of {}<br>{}'.format(request.args.get('type', 'all'), data)
+    return str(Store.query.all())
 
 @app.route('/api/msg/', methods=['POST'])
 @auth.login_required
