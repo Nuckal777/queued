@@ -63,10 +63,10 @@ def storelist():
     result_dicts = []
     for store in results:
         result_dicts.append({
-            "id": store.id,
-            "type": store.store_type,
-            "name": store.name,
-            "status": store.status,
+            "StoreID": store.id,
+            "Type": store.store_type,
+            "Name": store.name,
+            "Status": store.status,
         })
 
     return {"storelist": result_dicts}
