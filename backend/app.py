@@ -93,14 +93,10 @@ def booking():
 
     elif request.method == "POST":
 
-        content = request.get_json(silent=False, force=True)
-
-        content['UserID']
-
         b = Booking()
-        b.start_date = content['Startdate']
-        b.user_id = content['UserID']
-        b.store_id = content['StoreID']
+        b.start_date = request.args.get('Startdate')
+        b.user_id = request.args.get('UserID')
+        b.store_id = request.args.get('StoreID')
 
         db_session.add(b)
         db_session.commit()
