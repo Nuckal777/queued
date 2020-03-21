@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Form } from 'react-bootstrap';
+import { Form, Button } from 'react-bootstrap';
 import StoreSelector from "./controls/StoreSelector";
 import DateSelector from "./controls/DateSelector";
 
@@ -16,6 +16,9 @@ const Booking = (props) => {
                     <DateSelector/>
                 </Form.Group>
             }
+
+            <Button type="submit" variant="secondary">Jetzt buchen</Button>
+
         </Form>)
 }
 
