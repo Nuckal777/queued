@@ -71,31 +71,42 @@ def storelist():
 
     return {"storelist": result_dicts}
 
-@app.route('/api/msg/', methods=['POST'])
-@auth.login_required
+@app.route('/api/booking', methods=['GET', 'POST'])
 def booking():
-    try:
+    if request.method == "GET":
+        user_id = request.args.get('UserID', None)
+        results = None
+
+        if user_id is None:
+            results = {}
+        else:
+            results = Booking.query.filter(Booking.user_id == user_id).all()
+
+        result_dicts = []
+        for booking in results:
+            result_dicts.append({
+                "BookingID": booking.id,
+                "Startdate": booking.start_date
+            })
+
+        return {"bookings": result_dicts}
+
+    elif request.method == "POST":
+
         content = request.get_json(silent=False, force=True)
-        # logger.debug("Parsed update: {}".format(content))
-    except Exception as e:
-        # logger.error("Failed to parse as json: {}".format(request.data))
-        return jsonify(err_something=False)
 
-    #{"new": "userid;location;timestamp"}
+        content['UserID']
 
-    if 'new' in content:
-        new_result = content['new']
-        param = new_result.split(";")
-        user_id = param[0]
-        location = param[1]
-        timestamp = param[2]
+        b = Booking()
+        b.start_date = content['Startdate']
+        b.user_id = content['UserID']
+        b.store_id = content['StoreID']
 
+        db_session.add(b)
+        db_session.commit()
+        #db_session.refresh(b)
 
-        #logger.info("add_new with user_id: %s, location: %s, timestamp: %s") % (user_id,location,timestamp)
-        return jsonify('{"yeah":"number_in_Q_1238457; qr_code; location: %s"}' % location)
-
-    return jsonify('{"msg":msg}')
-
+        return {"BookingID": b.id}
 
 # handle tls with proper webserver
 ##context = ssl.SSLContext(ssl.PROTOCOL_TLSv1_2)
