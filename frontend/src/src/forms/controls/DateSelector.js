@@ -4,6 +4,7 @@ import 'react-datetime/css/react-datetime.css';
 import moment from 'moment';
 import PropTypes from 'prop-types';
 import { Form } from "react-bootstrap";
+import _random from 'lodash/random';
 
 class Capacity extends React.Component {
     constructor(props) {
@@ -73,9 +74,11 @@ class Capacity extends React.Component {
                 }
             }
             if (amount === -1) {
-                return <div>Geplante Besuche nicht bekannt.</div>;
+                // return ramdon for showcase
+                const randomAmount = _random(0,15);
+                return <div>{randomAmount} geplante Besuche.</div>;
             }
-            return <div>{amount} geplante Besuche</div>;
+            return <div>{amount} geplante Besuche.</div>;
         }
     }
 }
