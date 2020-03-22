@@ -31,9 +31,11 @@ class StoreSelector extends Component {
     }
 
     componentDidMount() {
-            fetch('/api/storelist')
-                .then(response => response.json())
-                .then(data => this.setState({ data, loading: false }));
+
+
+        const data = {"storelist":[{"Name":"Aldi","Status":"Klopapier erst wieder ab Montag!!!","StoreID":1,"Type":"Supermarkt"},{"Name":"Netto","Status":"Alles OK","StoreID":2,"Type":"Supermarkt"},{"Name":"HackBack","Status":null,"StoreID":3,"Type":"B\u00e4cker"}]};
+
+            this.setState({ data, loading: false });
     }
 
     render() {

@@ -21,25 +21,27 @@ class Overview extends Component {
         const { userId } = this.props;
         const params = { UserID: userId };
         const stringified = queryString.stringify(params);
-        fetch("api/bookings?" + stringified,)
-            .then(res => res.json())
-            .then(
-                (result) => {
-                    this.setState({
-                        isLoading: false,
-                        result
-                    });
+
+        const result = {
+            "bookings": [
+                {
+                    "BookingID": 5934,
+                    "Startdate": 1584880499,
+                    "StoreName": "Der Laden"
                 },
-                // Note: it's important to handle errors here
-                // instead of a catch() block so that we don't swallow
-                // exceptions from actual bugs in components.
-                (error) => {
-                    this.setState({
-                        isLoading: false,
-                        error
-                    });
+                {
+                    "BookingID": 7963,
+                    "Startdate": 1584880536,
+                    "StoreName": "Der Betrieb"
                 }
-            )
+            ]
+        };
+
+
+        this.setState({
+            isLoading: false,
+            result
+        });
     }
 
     render() {

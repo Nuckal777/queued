@@ -32,29 +32,22 @@ class FormSubmissionHandler extends Component {
             UserID: userId,
 
         });
-        fetch("api/booking",
-            {
-                body: formData,
-                method: "post"
-            })
-            .then(res => res.json())
-            .then(
-                (result) => {
-                    this.setState({
-                        isSubmitting: false,
-                        result
-                    });
-                },
-                // Note: it's important to handle errors here
-                // instead of a catch() block so that we don't swallow
-                // exceptions from actual bugs in components.
-                (error) => {
-                    this.setState({
-                        isSubmitting: false,
-                        error
-                    });
+
+
+        const result = {
+            "booking":
+                {
+                    "BookingID": 5934,
+                    "Startdate": 1584617913,
+                    "StoreName": "Der Laden"
                 }
-            )
+        };
+
+
+        this.setState({
+            isSubmitting: false,
+            result
+        });
     }
 
     render() {
