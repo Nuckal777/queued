@@ -2,6 +2,9 @@ import React from 'react';
 import Datetime from 'react-datetime';
 import 'react-datetime/css/react-datetime.css';
 import moment from 'moment';
+import PropTypes from 'prop-types';
+import { Form } from "react-bootstrap";
+import _random from 'lodash/random';
 
 class Capacity extends React.Component {
     constructor(props) {
@@ -11,9 +14,17 @@ class Capacity extends React.Component {
             isLoaded: false,
             items: []
         };
+        this.checkCapacity = this.checkCapacity.bind(this);
     }
 
-    componentDidMount() {
+    checkCapacity(selectedDate) {
+        this.setState({
+            error: null,
+            isLoaded: false,
+            items: []
+        });
+
+        // make request for selected date
         fetch("/capacity")
             .then(res => res.json())
             .then(
@@ -35,8 +46,22 @@ class Capacity extends React.Component {
             )
     }
 
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        const { selectedDate } = this.props;
+        if (prevProps.selectedDate !== selectedDate) {
+            this.checkCapacity(selectedDate);
+        }
+    }
+
+    componentDidMount() {
+        const { selectedDate } = this.props;
+        this.checkCapacity(selectedDate);
+    }
+
     render() {
         const { error, isLoaded, items } = this.state;
+        const { selectedDate } = this.props;
+
         if (error) {
             return <div>Error: {error.message}</div>;
         } else if (!isLoaded) {
@@ -44,33 +69,49 @@ class Capacity extends React.Component {
         } else {
             let amount = -1;
             for (var item of items.Capacity) {
-                if (moment(item.StartDate).unix() === this.props.moment.unix()) {
+                if (moment(item.StartDate).unix() === selectedDate.unix()) {
                     amount = item.Amount;
                 }
             }
             if (amount === -1) {
-                return <div>Geplante Besuche nicht bekannt.</div>;
+                // return ramdon for showcase
+                const randomAmount = _random(0,15);
+                return <div>{randomAmount} geplante Besuche.</div>;
             }
-            return <div>{amount} geplante Besuche</div>;
+            return <div>{amount} geplante Besuche.</div>;
         }
     }
 }
 
-class CapacityDatime extends React.Component {
+Capacity.propTypes = {
+    selectedDate: PropTypes.object.isRequired
+}
+
+class DateSelector extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {date: moment()};
+        this.onDateChanged = this.onDateChanged.bind(this);
     }
 
     onDateChanged(currentMoment) {
-        this.setState({date: currentMoment});
+        const { onSelect } = this.props;
+        onSelect(currentMoment);
     }
 
     render() {
-        return <><Datetime open input={false} onChange={this.onDateChanged.bind(this)}></Datetime><Capacity moment={this.state.date}></Capacity></>;
+        const { selectedDate } = this.props;
+        return (
+            <Form.Group controlId="bookingForm.store">
+                <Form.Label>Tag auswählen</Form.Label>
+                <Datetime open input={false} value={selectedDate} onChange={this.onDateChanged}></Datetime><Capacity selectedDate={selectedDate}></Capacity>
+            </Form.Group>
+        );
     }
 }
 
-const DateSelector = () => <CapacityDatime></CapacityDatime>
+DateSelector.propTypes = {
+    onSelect: PropTypes.func.isRequired,
+    selectedDate: PropTypes.object.isRequired
+}
 
 export default DateSelector;
