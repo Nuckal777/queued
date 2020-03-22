@@ -4,7 +4,7 @@ import Overview from "./views/Overview";
 import Header from './layout/Header';
 import Booking from "./views/Booking";
 import Content from "./layout/Content";
-import logo from './images/logo_queued.png';
+import logo from './images/logo_queued_v2.png';
 
 console.log(logo); //
 
