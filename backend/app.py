@@ -89,10 +89,8 @@ def capacity():
         results = {}
     else:
         start_date = datetime.utcfromtimestamp(int(start_date))
-        print(start_date)
         # extract day
         start_date = datetime(start_date.year, start_date.month, start_date.day, 0, 0, 0)
-        print(start_date)
         # next day
         end_date = start_date + timedelta(days=1)
 
