@@ -8,21 +8,27 @@ from datetime import datetime, timedelta
 from pytz import utc
 
 app = Flask(__name__)
+# deliver JSON content with uft-8 charset
 app.config['JSON_AS_ASCII'] = False
 
+# initialize database connection
 init_db()
+
+# define RESET endpoints
 
 @app.route('/')
 def index():
+    """index page (not important)"""
     return """
-<title>Early-Hamster Backend</title>
-<h1>Early-Hamster Backend</h1>
+<title>Queued Backend</title>
+<h1>Queued Backend</h1>
     <span style="font-weight: bold; background-color: lightgreen; padding: 8px">
         is running
     </span>"""
 
 @app.route('/api/storelist', methods=['GET'])
 def storelist():
+    """return list of stores based on type"""
     store_type = request.args.get('type', None)
     results = None
 
@@ -44,6 +50,7 @@ def storelist():
 
 @app.route('/api/booking', methods=['GET', 'POST'])
 def booking():
+    """handle booking creations (POST) and queries (GET)"""
     if request.method == "GET":
         user_id = request.args.get('UserID', None)
         results = None
@@ -81,6 +88,7 @@ def booking():
 
 @app.route('/api/capacity', methods=['GET'])
 def capacity():
+    """return utilization (amount of bookings) of each 10 minute time slot of a day"""
     start_date = request.args.get('Startdate', '')
     store_id = request.args.get('StoreID', '')
     results = None
@@ -123,7 +131,10 @@ def capacity():
     return {"capacity": result_dicts}
 
 def to_time_stamp(dt):
+    """convert datetime objects to UTC timestamp"""
     return int(utc.localize(dt).timestamp())
 
+# run the app
+# 0.0.0.0 is accessible from other computers
 app.run(host='0.0.0.0', port=5000)
 
