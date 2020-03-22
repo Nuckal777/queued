@@ -12,7 +12,7 @@ const getContent = (route) => {
     switch (route) {
         default:
         case 'overview':
-            return <Overview data={[{purchaseID: '1337', startDate: 1584804113000}, {purchaseID: '26781', startDate: 1585894113000}, {purchaseID: '29365', startDate: 15848136113000}]} />
+            return <Overview data={[{purchaseID: '1337', startDate: 1584808113000}, {purchaseID: '26781', startDate: 1585894113000}, {purchaseID: '29365', startDate: 15848136113000}]} />
         case 'booking':
             return <Booking />
     }

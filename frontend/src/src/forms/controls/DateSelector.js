@@ -69,7 +69,7 @@ class Capacity extends React.Component {
         } else {
             let amount = -1;
             for (var item of items.capacity) {
-                if (moment(item.Startdate).unix() === selectedDate.unix()) {
+                if (moment(item.Timeslot).unix() === selectedDate.unix()) {
                     amount = item.Amount;
                 }
             }
