@@ -95,7 +95,8 @@ def booking():
         for booking in results:
             result_dicts.append({
                 "BookingID": booking.id,
-                "Startdate": booking.start_date
+                "Startdate": booking.start_date,
+                "StoreName": booking.store.name
             })
 
         return {"bookings": result_dicts}
@@ -110,7 +111,11 @@ def booking():
         db_session.add(b)
         db_session.commit()
 
-        return {"BookingID": b.id}
+        return {
+            "BookingID": b.id,
+            "Startdate": b.start_date,
+            "StoreName": b.store.name
+        }
 
 @app.route('/api/capacity', methods=['GET'])
 def capacity():

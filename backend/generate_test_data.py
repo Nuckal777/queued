@@ -22,7 +22,7 @@ user = User()
 db_session.add(user)
 
 booking = Booking()
-booking.start_date = 12334
+booking.start_date = 12345
 booking.user = user
 booking.store = store1
 db_session.add(booking)
