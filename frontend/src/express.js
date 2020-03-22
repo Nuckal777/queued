@@ -15,7 +15,7 @@ app.get('/api/storelist', (req, res) => res.send(JSON.parse(rawdata)))
 app.get('/api/capacity', (req, res) => res.send(JSON.parse(capacitydata)))
 app.get('/api/bookings', (req, res) => res.send(JSON.parse(bookingsdata)))
 
-app.post('/booking', function(req, res) {
+app.post('/api/booking', function(req, res) {
     res.send(JSON.parse(bookingdata));
 });
 

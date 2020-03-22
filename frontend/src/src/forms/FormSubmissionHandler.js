@@ -32,7 +32,7 @@ class FormSubmissionHandler extends Component {
             UserID: userId,
 
         });
-        fetch("/booking",
+        fetch("api/booking",
             {
                 body: formData,
                 method: "post"

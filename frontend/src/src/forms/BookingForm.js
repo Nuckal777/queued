@@ -13,7 +13,7 @@ const RemoveSeconds = (date) => {
 
 const Booking = (props) => {
         const [selectedStore, setSelectedStore] = React.useState(null)
-        const [selectedDate, setSelectedDate] = React.useState(RemoveSeconds(moment());
+        const [selectedDate, setSelectedDate] = React.useState(RemoveSeconds(moment()));
         const { userId } = props;
 
         const reset = () => {
