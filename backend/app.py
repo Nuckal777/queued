@@ -4,7 +4,7 @@ from flask import Flask, request, jsonify
 from database import init_db
 from database import db_session
 from models import *
-from datetime import datetime
+from datetime import datetime, timedelta
 
 app = Flask(__name__)
 app.config['JSON_AS_ASCII'] = False
@@ -81,30 +81,41 @@ def booking():
 @app.route('/api/capacity', methods=['GET'])
 def capacity():
     start_date = request.args.get('Startdate', '')
-    end_date = request.args.get('Enddate', '')
     store_id = request.args.get('StoreID', '')
     results = None
 
-    if not all([start_date, end_date, store_id]):
+    if not all([start_date, store_id]):
         results = {}
     else:
+        start_date = datetime.utcfromtimestamp(int(start_date))
+        # extract day
+        start_date = datetime(start_date.year, start_date.month, start_date.day, 0, 0, 0)
+        # next day
+        end_date = start_date + timedelta(days=1)
+
         results = Booking.query.filter(
             Booking.store_id == store_id,
             Booking.start_date >= start_date,
-            Booking.start_date <= end_date
+            Booking.start_date < end_date
         ).order_by(Booking.start_date).all()
 
+    first_slot = start_date + timedelta(hours=8)
+    last_slot = start_date + timedelta(hours=18)
+    step_size = timedelta(minutes=10)
+
     histogram = {}
+    current_slot = first_slot
+    for _ in range((last_slot - first_slot) // step_size):
+        histogram[current_slot] = 0
+        current_slot = current_slot + step_size
+
     for booking in results:
-        if booking.start_date in histogram:
-            histogram[booking.start_date] += 1
-        else:
-            histogram[booking.start_date] = 1
+        histogram[booking.start_date] += 1
 
     result_dicts = []
     for slot, amount in histogram.items():
         result_dicts.append({
-            "Timeslot": slot,
+            "Timeslot": int(slot.timestamp()),
             "Amout": amount
         })
 
