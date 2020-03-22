@@ -1,0 +1,14 @@
+{
+    "bookings": [
+        {
+            "BookingID": 5934,
+            "Startdate": 1584880499,
+            "StoreName": "Der Laden"
+        },
+        {
+            "BookingID": 7963,
+            "Startdate": 1584880536,
+            "StoreName": "Der Betrieb"
+        }
+    ]
+}
