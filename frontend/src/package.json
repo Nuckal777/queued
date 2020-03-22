@@ -12,6 +12,7 @@
     "lodash": "^4.17.15",
     "moment": "^2.24.0",
     "prop-types": "^15.7.2",
+    "query-string": "^6.11.1",
     "react": "^16.13.1",
     "react-bootstrap": "^1.0.0-beta.17",
     "react-datetime": "^2.16.3",

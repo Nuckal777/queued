@@ -19,6 +19,4 @@ app.post('/api/booking', function(req, res) {
     res.send(JSON.parse(bookingdata));
 });
 
-
-
-app.listen(8080)
+app.listen(8080);
