@@ -13,7 +13,7 @@ const BookingFormSuccess = ({ handleReset, result }) => {
 
                 <Card>
                     <Card.Body>
-                        <Card.Title>{booking.StoreName} am {moment.unix(booking.Startdate).format('YYYY-MM-DD HH:mm')}</Card.Title>
+                        <Card.Title>{booking.StoreName} am {moment.unix(booking.Startdate).format('DD.MM.YYY HH:mm')}</Card.Title>
                         <Card.Subtitle className="mb-2 text-muted">Id: {booking.BookingID} </Card.Subtitle>
                         <Card.Text>
                             Was es sonst noch so zu wissen gibt. Bitte folge diesen Hinweisen.

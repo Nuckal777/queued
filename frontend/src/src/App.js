@@ -6,8 +6,6 @@ import Booking from "./views/Booking";
 import Content from "./layout/Content";
 import logo from './images/logo_queued_v2.png';
 
-console.log(logo); //
-
 const getContent = (route) => {
     switch (route) {
         default:
