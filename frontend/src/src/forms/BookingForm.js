@@ -6,14 +6,19 @@ import moment from 'moment';
 import FormSubmissionHandler from "./FormSubmissionHandler";
 import PropTypes from 'prop-types';
 
+// need to strip everything more accurate than minutes to not screw up equality comparisons with the api
+const RemoveSeconds = (date) => {
+    return moment(date).second(0).millisecond(0)
+}
+
 const Booking = (props) => {
         const [selectedStore, setSelectedStore] = React.useState(null)
-        const [selectedDate, setSelectedDate] = React.useState(moment());
+        const [selectedDate, setSelectedDate] = React.useState(RemoveSeconds(moment());
         const { userId } = props;
 
         const reset = () => {
             setSelectedStore(null);
-            setSelectedDate(moment());
+            setSelectedDate(RemoveSeconds(moment()));
         }
 
         return (
