@@ -15,7 +15,7 @@ class Store(Base):
 class Booking(Base):
     __tablename__ = 'Booking'
     id = Column(Integer, primary_key=True)
-    start_date = Column(DateTime)
+    start_date = Column(DateTime(timezone=False))
     user_id = Column(Integer, ForeignKey('User.id'))
     user = relationship('User')
     store_id = Column(Integer, ForeignKey('Store.id'))

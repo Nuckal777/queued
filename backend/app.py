@@ -5,6 +5,7 @@ from database import init_db
 from database import db_session
 from models import *
 from datetime import datetime, timedelta
+from pytz import utc
 
 app = Flask(__name__)
 app.config['JSON_AS_ASCII'] = False
@@ -56,7 +57,7 @@ def booking():
         for booking in results:
             result_dicts.append({
                 "BookingID": booking.id,
-                "Startdate": int(booking.start_date.timestamp()),
+                "Startdate": to_time_stamp(booking.start_date),
                 "StoreName": booking.store.name
             })
 
@@ -74,7 +75,7 @@ def booking():
 
         return {
             "BookingID": b.id,
-            "Startdate": int(b.start_date.timestamp()),
+            "Startdate": to_time_stamp(b.start_date),
             "StoreName": b.store.name
         }
 
@@ -88,8 +89,10 @@ def capacity():
         results = {}
     else:
         start_date = datetime.utcfromtimestamp(int(start_date))
+        print(start_date)
         # extract day
         start_date = datetime(start_date.year, start_date.month, start_date.day, 0, 0, 0)
+        print(start_date)
         # next day
         end_date = start_date + timedelta(days=1)
 
@@ -115,11 +118,14 @@ def capacity():
     result_dicts = []
     for slot, amount in histogram.items():
         result_dicts.append({
-            "Timeslot": int(slot.timestamp()),
+            "Timeslot": to_time_stamp(slot),
             "Amout": amount
         })
 
     return {"capacity": result_dicts}
+
+def to_time_stamp(dt):
+    return int(utc.localize(dt).timestamp())
 
 app.run(host='0.0.0.0', port=5000)
 
