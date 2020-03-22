@@ -25,7 +25,7 @@ class Capacity extends React.Component {
         });
 
         // make request for selected date
-        fetch("/capacity")
+        fetch("/api/capacity")
             .then(res => res.json())
             .then(
                 (result) => {
@@ -68,8 +68,8 @@ class Capacity extends React.Component {
             return <div>Loading...</div>;
         } else {
             let amount = -1;
-            for (var item of items.Capacity) {
-                if (moment(item.StartDate).unix() === selectedDate.unix()) {
+            for (var item of items.capacity) {
+                if (moment(item.Startdate).unix() === selectedDate.unix()) {
                     amount = item.Amount;
                 }
             }

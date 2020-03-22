@@ -31,7 +31,7 @@ class StoreSelector extends Component {
     }
 
     componentDidMount() {
-            fetch('/storelist')
+            fetch('/api/storelist')
                 .then(response => response.json())
                 .then(data => this.setState({ data, loading: false }));
     }
