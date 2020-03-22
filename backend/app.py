@@ -50,6 +50,15 @@ def verify(username, password):
         return False
     return USER_DATA.get(username) == password
 
+@app.route('/')
+def index():
+    return """
+<title>Early-Hamster Backend</title>
+<h1>Early-Hamster Backend</h1>
+    <span style="font-weight: bold; background-color: lightgreen; padding: 8px">
+        is running
+    </span>"""
+
 @app.route('/api/storelist', methods=['GET'])
 def storelist():
     store_type = request.args.get('type', None)
