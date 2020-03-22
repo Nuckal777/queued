@@ -7,6 +7,16 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+.btn-queued {
+  background-color: #00BFA5;
+  color: white;
+}
+
+.btn-queued:hover, .btn-queued.active {
+  background-color: #00886C;
+  color: white;
+}
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;

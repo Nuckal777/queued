@@ -1,4 +1,13 @@
 .header {
+    display: flex;
+}
+
+.buttons {
+    flex: 1 1 auto;
+}
+
+.user {
+    flex: 0 0 auto;
 }
 
 .button {
