@@ -1,7 +1,6 @@
 import React from 'react';
 import styles from './App.module.css';
 import Overview from "./views/Overview";
-import 'bootstrap/dist/css/bootstrap.min.css';
 import Header from './layout/Header';
 import Booking from "./views/Booking";
 import Content from "./layout/Content";
