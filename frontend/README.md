@@ -1,4 +1,4 @@
-#Early-Hamster Frontend
+#Queued Frontend
 
 
 ##Dependencies

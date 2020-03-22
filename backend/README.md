@@ -1,4 +1,4 @@
-# Early-Hamster Backend
+# Queued Backend
 
 ## Installation
 * install Python 3
