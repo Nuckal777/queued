@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, ForeignKey
+from sqlalchemy import Column, Integer, String, ForeignKey, DateTime
 from sqlalchemy.orm import relationship
 from database import Base
 
@@ -15,7 +15,7 @@ class Store(Base):
 class Booking(Base):
     __tablename__ = 'Booking'
     id = Column(Integer, primary_key=True)
-    start_date = Column(Integer)
+    start_date = Column(DateTime)
     user_id = Column(Integer, ForeignKey('User.id'))
     user = relationship('User')
     store_id = Column(Integer, ForeignKey('Store.id'))

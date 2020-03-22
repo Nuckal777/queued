@@ -11,7 +11,7 @@ import ssl
 from database import init_db
 from database import db_session
 from models import *
-
+from datetime import datetime
 
 app = Flask(__name__)
 # handle tls with proper webserver
@@ -95,7 +95,7 @@ def booking():
         for booking in results:
             result_dicts.append({
                 "BookingID": booking.id,
-                "Startdate": booking.start_date,
+                "Startdate": int(booking.start_date.timestamp()),
                 "StoreName": booking.store.name
             })
 
@@ -104,7 +104,7 @@ def booking():
     elif request.method == "POST":
 
         b = Booking()
-        b.start_date = request.args.get('Startdate')
+        b.start_date = datetime.utcfromtimestamp(int(request.args.get('Startdate')))
         b.user_id = request.args.get('UserID')
         b.store_id = request.args.get('StoreID')
 
@@ -113,7 +113,7 @@ def booking():
 
         return {
             "BookingID": b.id,
-            "Startdate": b.start_date,
+            "Startdate": int(b.start_date.timestamp()),
             "StoreName": b.store.name
         }
 

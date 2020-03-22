@@ -2,6 +2,7 @@
 
 from database import *
 from models import *
+from datetime import datetime
 
 drop_all()
 init_db()
@@ -22,7 +23,7 @@ user = User()
 db_session.add(user)
 
 booking = Booking()
-booking.start_date = 12345
+booking.start_date = datetime(2020, 3, 23, 11, 30, 0)
 booking.user = user
 booking.store = store1
 db_session.add(booking)
