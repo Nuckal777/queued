@@ -1,9 +1,16 @@
 import React from "react";
 import BookingForm from '../forms/BookingForm'
+import UserContext from "../context/UserContext";
 
-const Booking = (props) => {
+const Booking = () => {
+    return (
+        <UserContext.Consumer>
+            {
+                (userId) => <BookingForm userId={userId}  />
+            }
 
-    return <BookingForm />;
+        </UserContext.Consumer>
+        );
 }
 
 export default Booking;
